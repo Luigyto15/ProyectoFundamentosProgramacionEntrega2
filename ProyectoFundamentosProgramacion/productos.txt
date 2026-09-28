@@ -1,0 +1,10 @@
+PR001 ;  Guantes  ; 22000.0
+PR002 ;  Camiseta  ; 24000.0
+PR003 ;  Guantes  ; 26000.0
+PR004 ;  Zapatos  ; 13000.0
+PR005 ;  Chaqueta  ; 30000.0
+PR006 ;  Pantalón  ; 15000.0
+PR007 ;  Camiseta  ; 73000.0
+PR008 ;  Camiseta  ; 70000.0
+PR009 ;  Camiseta  ; 98000.0
+PR010 ;  Guantes  ; 32000.0

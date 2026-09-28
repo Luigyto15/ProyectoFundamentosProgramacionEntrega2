@@ -1,0 +1,13 @@
+ Ana Tabares CC;1000352708
+PR003; Vendio ;1
+PR002; Vendio ;4
+PR008; Vendio ;5
+PR002; Vendio ;5
+PR008; Vendio ;3
+PR010; Vendio ;4
+PR007; Vendio ;1
+PR008; Vendio ;2
+PR004; Vendio ;5
+PR009; Vendio ;2
+PR005; Vendio ;4
+PR003; Vendio ;2

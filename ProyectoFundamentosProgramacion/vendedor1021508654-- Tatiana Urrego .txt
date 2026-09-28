@@ -1,0 +1,21 @@
+ Tatiana Urrego CC;1021508654
+PR008; Vendio ;1
+PR005; Vendio ;5
+PR001; Vendio ;5
+PR003; Vendio ;2
+PR006; Vendio ;2
+PR004; Vendio ;5
+PR003; Vendio ;4
+PR001; Vendio ;2
+PR003; Vendio ;3
+PR001; Vendio ;2
+PR001; Vendio ;3
+PR003; Vendio ;4
+PR005; Vendio ;3
+PR001; Vendio ;1
+PR010; Vendio ;2
+PR010; Vendio ;5
+PR007; Vendio ;2
+PR006; Vendio ;4
+PR009; Vendio ;5
+PR007; Vendio ;3
