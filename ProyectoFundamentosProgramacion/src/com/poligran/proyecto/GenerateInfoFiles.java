@@ -70,9 +70,9 @@ public class GenerateInfoFiles {
 
     
     /**
-      Este es la parte del main que crea un archivo con la información 
-      aleatoria de los productos disponibles.
-      Con este formato: ID Producto; Nombre Producto; Precio Por Unidad Producto.
+     Este es la parte del main que crea un archivo con la información 
+     aleatoria de los productos disponibles.
+     Con este formato: ID Producto; Nombre Producto; Precio Por Unidad Producto.
      */
     
     
@@ -86,6 +86,11 @@ public class GenerateInfoFiles {
                 String nombreProd = NOMBRES_PRODUCTOS[random.nextInt(NOMBRES_PRODUCTOS.length)] ;
                 double precioUnitario = 10000 + (random.nextInt(90) * 1000); // Escoje un precio al azar entre 10,000 y 100,000
                 
+                // VALIDACIÓN AVANZADA: Asegurarnos que el precio no sea negativo o cero de forma erronea
+                if (precioUnitario <= 0) {
+                    throw new IllegalArgumentException("Error de validación: El precio unitario no puede ser negativo o cero.");
+                }
+                
                 // Pedimos que escriba la linea de texto con una separacion de dos guiones para que no quede tan junto.
                 
                 writer.write(idProd + " ; " + nombreProd + " ; " + precioUnitario);
@@ -97,9 +102,9 @@ public class GenerateInfoFiles {
 
     
     /**
-      Por otro lado en el main aqui se encaraga de crear un archivo con la información 
-      de una cantidad puntual de vendedores.
-      El formato es: Tipo Documento; Número Documento; Nombres Vendedor; Apellidos Vendedor
+     Por otro lado en el main aqui se encaraga de crear un archivo con la información 
+     de una cantidad puntual de vendedores.
+     El formato es: Tipo Documento; Número Documento; Nombres Vendedor; Apellidos Vendedor
      */
     
     
@@ -114,6 +119,10 @@ public class GenerateInfoFiles {
                 String nombre = NOMBRES[random.nextInt(NOMBRES.length)];
                 String apellido = APELLIDOS[random.nextInt(APELLIDOS.length)];
                 
+                // VALIDACIÓN AVANZADA: Controlaremos los documentos negativos o inválidos
+                if (numDoc <= 0) {
+                    throw new IllegalArgumentException("Error de validación: El número de documento no puede ser negativo.");
+                }
                 
                 writer.write(tipoDoc + ";" + numDoc + ";" + nombre + ";" + apellido);
                 writer.newLine();
@@ -124,10 +133,10 @@ public class GenerateInfoFiles {
 
     
     /**
-       Por ultimo el main crea un archivo de ventas para un vendedor específico.
-       con el formato:
-       Tipo Documento Vendedor; Número Documento Vendedor: en primera línea
-       ID Producto; Cantidad Vendida: en las líneas siguientes.
+        Por ultimo el main crea un archivo de ventas para un vendedor específico.
+        con el formato:
+        Tipo Documento Vendedor; Número Documento Vendedor: en primera línea
+        ID Producto; Cantidad Vendida: en las líneas siguientes.
      */
     
     
@@ -143,6 +152,11 @@ public class GenerateInfoFiles {
                 int productoNum = 1 + random.nextInt(10); // Asume productos del PR01 al PR010
                 String idProducto = "PR" + String.format("%03d", productoNum);
                 int cantidad = 1 + random.nextInt(5); // Cantidad entre 1 y 5
+
+                // VALIDACIÓN AVANZADA: Nos aseguramos que la cantidad vendida nunca sea menor o igual a 0
+                if (cantidad <= 0) {
+                    throw new IllegalArgumentException("Error de validación: La cantidad vendida debe ser mayor a 0.");
+                }
 
                 writer.write(idProducto + "; Vendio ;" + cantidad);
                 writer.newLine();

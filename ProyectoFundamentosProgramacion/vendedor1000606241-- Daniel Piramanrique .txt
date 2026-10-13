@@ -1,9 +1,9 @@
  Daniel Piramanrique CC;1000606241
-PR007; Vendio ;1
 PR004; Vendio ;5
-PR009; Vendio ;4
-PR001; Vendio ;3
-PR003; Vendio ;2
-PR009; Vendio ;1
+PR004; Vendio ;3
 PR002; Vendio ;3
-PR001; Vendio ;5
+PR006; Vendio ;4
+PR004; Vendio ;3
+PR002; Vendio ;5
+PR005; Vendio ;5
+PR001; Vendio ;1

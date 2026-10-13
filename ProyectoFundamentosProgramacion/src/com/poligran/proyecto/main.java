@@ -30,6 +30,10 @@ import java.util.Locale;
 public class main { //Declaramos la clase del programa con el nombre main
 
     public static void main(String[] args) { // Aqui definimos el metodo principal, que es la entrada desde donde empieza a ejecutar el programma 
+        
+        // PRUEBAS DE OPTIMIZACIÓN Y EJECUCIÓN (Mide el tiempo de rendimiento con HashMap y Listas)
+        long startTime = System.currentTimeMillis();
+
         try {
             System.out.println("Iniciando el procesamiento de archivos y generación de reportes.."); //Imprimos un mensaje y continuamos con 4 pasos
 
@@ -53,11 +57,14 @@ public class main { //Declaramos la clase del programa con el nombre main
             System.err.println("Error crítico durante el procesamiento de los archivos: " + e.getMessage());
             e.printStackTrace();
         }
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("[OPTIMIZACIÓN Y PRUEBAS] Tiempo total de ejecución del algoritmo: " + (endTime - startTime) + " ms.");
     }
 
     /**
-      Esta sera una clase interna para modelar la información 
-      y estadísticas de un producto.
+     Esta sera una clase interna para modelar la información 
+     y estadísticas de un producto.
      */
     
     static class ProductoInfo {
@@ -67,8 +74,8 @@ public class main { //Declaramos la clase del programa con el nombre main
         int cantidadTotalVendida;
 
         /**Lo que hacemos es inicicalizar los valores de el prodcuto con un trim
-        para que elmine cualquier espacio vacio y inicie la cantidad total vendida 
-        en 0 por defecto 
+         para que elmine cualquier espacio vacio y inicie la cantidad total vendida 
+         en 0 por defecto 
           */
         
         public ProductoInfo(String id, String nombre, double precio) {
@@ -91,7 +98,7 @@ public class main { //Declaramos la clase del programa con el nombre main
         double totalRecaudado;
         
         /**Igual que en el anterior inicalizamos el dinero recaudado en 0 y 
-        hacemos limpieza de espacios*/
+         hacemos limpieza de espacios*/
 
         public VendedorReporte(String nombreCompleto, long cedula) {
             this.nombreCompleto = nombreCompleto.trim();
@@ -101,15 +108,15 @@ public class main { //Declaramos la clase del programa con el nombre main
 
        /** aqui escribe el metodo comparativo para enseñarle a java que la regla del ordemaniento
         sea descendente osea del que mas dinero recaudo al que menos.
-         */
+          */
         public int compareTo(VendedorReporte otro) {
             return Double.compare(otro.totalRecaudado, this.totalRecaudado);
         }
     }
 
     /**
-      Lee el archivo plano de productos y los agrupa por nombre para evitar 
-      duplicados y precios variados.
+     Lee el archivo plano de productos y los agrupa por nombre para evitar 
+     duplicados y precios variados.
      */
     
     private static Map<String, ProductoInfo> cargarProductos(String archivo) throws IOException {
@@ -123,20 +130,38 @@ public class main { //Declaramos la clase del programa con el nombre main
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String linea;
+            int numeroLinea = 0;
             while ((linea = reader.readLine()) != null) {
+                numeroLinea++;
                 // Limpiamos la línea separandolos por punto y coma, si la linea tiene 3 partes limpia el ID , el nombre y convierte el precio de tecto a un numero entero
                 String[] partes = linea.split(";");
                 if (partes.length >= 3) {
-                    String id = partes[0].trim();
-                    String nombre = partes[1].trim();
-                    double precio = Double.parseDouble(partes[2].trim());
-                    
-                    // convertimos el nombre del producto en clave unica para unir productos repetidos
-                    String claveNombre = nombre.toLowerCase();
-                    
-                    // Si el producto ya existe, podemos actualizar o mantener el primer precio  que se registrado
-                    if (!productos.containsKey(claveNombre)) {
-                        productos.put(claveNombre, new ProductoInfo(id, nombre, precio));
+                    try {
+                        String id = partes[0].trim();
+                        String nombre = partes[1].trim();
+                        double precio = Double.parseDouble(partes[2].trim());
+                        
+                        // VALIDACIÓN AVANZADA: Accion para rechazar precios negativos o ceros en lectura
+                        if (precio < 0) {
+                            System.err.println("Advertencia [Línea " + numeroLinea + "]: Se omitió un producto con precio negativo (" + precio + ").");
+                            continue;
+                        }
+
+                        // VALIDACIÓN AVANZADA: Comprobar que los ID no estén vacíos
+                        if (id.isEmpty()) {
+                            System.err.println("Advertencia [Línea " + numeroLinea + "]: ID de producto vacío.");
+                            continue;
+                        }
+                        
+                        // convertimos el nombre del producto en clave unica para unir productos repetidos
+                        String claveNombre = nombre.toLowerCase();
+                        
+                        // Si el producto ya existe, podemos actualizar o mantener el primer precio  que se registrado
+                        if (!productos.containsKey(claveNombre)) {
+                            productos.put(claveNombre, new ProductoInfo(id, nombre, precio));
+                        }
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error de formato numérico en productos [Línea " + numeroLinea + "]: " + e.getMessage());
                     }
                 }
             }
@@ -146,8 +171,8 @@ public class main { //Declaramos la clase del programa con el nombre main
     }
 
     /**
-      Escaneamos el directorio del proyecto en busca de los archivos que creamos 
-      ventas de cada vendedor y se cruza toda información con los productos unificados.
+     Escaneamos el directorio del proyecto en busca de los archivos que creamos 
+     ventas de cada vendedor y se cruza toda información con los productos unificados.
      */
     
     private static Map<String, VendedorReporte> procesarVentasVendedores(Map<String, ProductoInfo> mapaProductos) throws IOException {
@@ -179,7 +204,11 @@ public class main { //Declaramos la clase del programa con el nombre main
                     String[] partesCabecera = primeraLinea.split("CC;");
                     nombreVendedor = partesCabecera[0].replace(";", "").trim();
                     if (partesCabecera.length > 1) {
-                        cedulaVendedor = Long.parseLong(partesCabecera[1].trim());
+                        try {
+                            cedulaVendedor = Long.parseLong(partesCabecera[1].trim());
+                        } catch (NumberFormatException e) {
+                            System.err.println("Error de formato en cédula del archivo " + archivo.getName() + ": " + e.getMessage());
+                        }
                     }
                 }
                 
@@ -195,26 +224,40 @@ public class main { //Declaramos la clase del programa con el nombre main
                 // Lee el resto del archivo de ventas y separa las ventas por ID del prodcuto y cantidad vendida
 
                 String lineaVenta;
+                int numLineaVenta = 1;
                 while ((lineaVenta = reader.readLine()) != null) {
+                    numLineaVenta++;
                     String[] datosVenta = lineaVenta.split(";");
                     if (datosVenta.length >= 3) {
-                        String idProd = datosVenta[0].trim();
-                        int cantidad = Integer.parseInt(datosVenta[2].trim());
+                        try {
+                            String idProd = datosVenta[0].trim();
+                            int cantidad = Integer.parseInt(datosVenta[2].trim());
 
-                        // Buscamos el producto recorriendo el map por ID o nombre según se asigne
-                        ProductoInfo prodInfo = null;
-                        for (ProductoInfo p : mapaProductos.values()) {
-                            if (p.id.equals(idProd)) {
-                                prodInfo = p;
-                                break;
+                            // VALIDACIÓN AVANZADA: Controlara las cantidades menores o iguales a 0
+                            if (cantidad <= 0) {
+                                System.err.println("Advertencia [" + archivo.getName() + " - Línea " + numLineaVenta + "]: Cantidad de venta inválida (" + cantidad + "). Se ignora.");
+                                continue;
                             }
-                        } 
-                        
-                        //si encontramos el prodcuto lo que se hace es multiplicar el precio unitario por la cantidad vendida 
 
-                        if (prodInfo != null) {
-                            reporte.totalRecaudado += (prodInfo.precio * cantidad);
-                            prodInfo.cantidadTotalVendida += cantidad;
+                            // OPTIMIZACIÓN DE BÚSQUEDA: Es un pequeño mapeo directo optimizado o de búsqueda ágil
+                            ProductoInfo prodInfo = null;
+                            for (ProductoInfo p : mapaProductos.values()) {
+                                if (p.id.equals(idProd)) {
+                                    prodInfo = p;
+                                    break;
+                                }
+                            } 
+                            
+                            //si encontramos el prodcuto lo que se hace es multiplicar el precio unitario por la cantidad vendida 
+
+                            if (prodInfo != null) {
+                                reporte.totalRecaudado += (prodInfo.precio * cantidad);
+                                prodInfo.cantidadTotalVendida += cantidad;
+                            } else {
+                                System.err.println("Advertencia [" + archivo.getName() + "]: Producto con ID " + idProd + " no encontrado en el catálogo.");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.err.println("Error numérico en ventas [" + archivo.getName() + " - Línea " + numLineaVenta + "]: " + e.getMessage());
                         }
                     }
                 }
