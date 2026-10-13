@@ -43,7 +43,7 @@ varios ensayos,obligándonos a implementar bloques de control de excepciones y v
 
 - Optimización de pruebas:
 Garantizar que el algoritmo corriera de manera eficiente y no se desestabilizara al procesar un volumen muy grande de archivos para esto lo que realizammos fue 
-una depuracion de los recorridos sobre todas estructuras de datos y realizar pruebas de ejecución detalladas. (prueba_masiva.png) o
+una depuracion de los recorridos sobre todas estructuras de datos y realizar pruebas de ejecución detalladas. (prueba_masiva.png) 
 
 - Problemas de codificación de los carecteres: Al leer y escribir archivos con tildes o caracteres especiales en español, experimentamos errores de visualización,
 lo cual solucionamos configurando de forma explícita el estándar UTF-8 en los flujos de lectura y salida.
