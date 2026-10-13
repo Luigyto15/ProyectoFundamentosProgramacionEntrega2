@@ -1,0 +1,55 @@
+========================================================================================
+ARCHIVO DE CONCLUSIONES - PROYECTO FUNDAMENTOS DE PROGRAMACIÓN ENTREGA FINAL
+INSTITUCIÓN: POLITÉCNICO GRANCOLOMBIANO
+ESTUDIANTES: LUIGY MAURICIO LEAL PINZON Y GIOVANNY SMITH ASPRILLA VALENCIA
+PROFESOR:EDWIN ANDRES NIÑO VELASQUEZ 
+
+NOTA: ESTIMADO PROFESOR DE ANTEMANO ESPERAMOS SE ENCUNTRE MUY BIEN, QUERIAMOS COMENTARLE 
+QUE LOS COMPAÑEROS CON LOS QUE HABIAMOS HECHO LAS DOS ENTREGAS ANTERIORES NOS INDICARON
+EL RETIRO DE LA MATERIA POR CIERTOS INCONVENIENTES INTENTAMOS APOYARLOS Y AYUDARLOS PARA
+CONTINUAR PERO EN DEFINITIVA NOS DIJERON QUE NO SEGUIRIAN POR ESA RAZON SOLO SOMOS DOS
+PERSONAS EN ESTE ULTIMA ENTREGA.
+========================================================================================
+
+
+
+* LO APRENDIDO DURANTE EL DESARROLLO DEL PROYECTO *
+  
+Durante todo el proceso de desarrollo de este proyecto, logramos llevar a la práctica los conceptos clave de la programación orientada a objetos en Java que vimos en clase
+entendimos a fondo cómo estructurar un sistema completo dividido en clases de manera independiente, por ejemplo en nuestro caso, separando la generación pseudoaleatoria de 
+datos en GenerateInfoFiles y la lógica de consolidación y reportes en main, cumpliendo con la regla de no pedir datos por consola; Además, aprendimos a manipular estructuras 
+de datos muy potentes como los Map o mas conocidos como HashMap y las listas para unificar catálogos de productos sin duplicarlos, calcular los totales de forma automática y 
+ordenar los resultados de manera descendente o ascendente sea el caso; También fue clave tener la segunda entrega antes de esta para aprender a manejar excepciones y aplicar
+validaciones avanzadas para que el programa no falle ante, archivos, vacíos o con datos erróneos, integrando finalmente la medición de tiempos para evaluar el rendimiento.
+
+* POSIBLES APLICACIONES EN LA VIDA PROFESIONAL*
+  
+Como estudiantes de ingeniería, reconocemos que las habilidades desarrolladas en este proyecto son sumamente prácticas para nuestro futuro profesional; 
+La capacidad de automatizar la lectura de archivos planos, o archivos de texto, procesar la información bajo reglas de negocio específicas que se 
+podrian dar en un ambito laboral de alguna emporesa y tambien el exportar reportes limpios compatibles con hojas de cálculo es exactamente lo que 
+se necesita y se usa en sistemas reales de inventarios, contabilidad y control de ventas para pequeñas y medianas empresas; Asimismo, el uso de 
+herramientas de control de versiones como GitHub, sumado al hábito de documentar adecuadamente el código con estándares formales, nos prepara de forma
+directa para los obstáculos que encontraremos en el ámbito laboral y a lo largo de esta carrera.
+
+* PRESENTADAS DURANTE EL DESARROLLO*
+  
+- Sincronización y unificación de catálogos: 
+Al principio del proyecto se nos presentaron duplicidades y variaciones en los nombres de los productos al momento de cruzar los archivos individuales
+de los vendedores con el catálogo general, lo cual resolvimos creando claves normalizadas basadas en mapas.
+
+- Control de errores y robustez: 
+Asegurarnos de que el proyecto fuera lo suficientemente fuerte o resistente ante datos corruptos, números negativos o archivos planos malformados, este proceso nos costó 
+varios ensayos,obligándonos a implementar bloques de control de excepciones y validaciones estrictas línea por línea.
+
+- Optimización de pruebas:
+Garantizar que el algoritmo corriera de manera eficiente y no se desestabilizara al procesar un volumen muy grande de archivos para esto lo que realizammos fue 
+una depuracion de los recorridos sobre todas estructuras de datos y realizar pruebas de ejecución detalladas.
+
+- Problemas de codificación de los carecteres: Al leer y escribir archivos con tildes o caracteres especiales en español, experimentamos errores de visualización,
+lo cual solucionamos configurando de forma explícita el estándar UTF-8 en los flujos de lectura y salida.
+  
+- Gestión de rutas relativas: En las primeras pruebas, el programa no lograba encontrar los archivos de texto si se ejecutaban desde algunos entornos o directorios diferentes al
+del proyecto principal, lo que nos forzo a refinar la lectura mediante la clase File y una ruta local.
+
+
+
